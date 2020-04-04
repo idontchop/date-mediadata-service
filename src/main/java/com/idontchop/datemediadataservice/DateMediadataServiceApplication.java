@@ -3,6 +3,12 @@ package com.idontchop.datemediadataservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * See controllers/MainController.java
+ * 
+ * @author micro
+ *
+ */
 @SpringBootApplication
 public class DateMediadataServiceApplication {
 

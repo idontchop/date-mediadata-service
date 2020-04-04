@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: mediadata-service
+    type: mediadata
+  datasource:
+    mongo:
+      database: ${MONGODB:mediadata}
+  data:
+    rest:
+      basePath: /data
+server:
+  port: ${PORT:8980}
+eureka:
+  instance:
+    hostname: localhost
+    metadataMap:
+      zone: zone1
+logging:
+  level:
+    org:
+      springframework: info
+    hibernate:
+      SQL: debug
+    com: debug
+
+
+      

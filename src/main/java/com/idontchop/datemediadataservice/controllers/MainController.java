@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +55,17 @@ public class MainController {
 		
 		return mediaDataService.addMedia(file, owner);
 		
+	}
+	
+	@PutMapping ( "/media" )
+	public MediaData replaceMedia (
+			@RequestParam("file") MultipartFile file,
+			@RequestParam (value = "owner", required=true) String owner,
+			@RequestParam (value = "id", required=true) String id) throws IOException {
+		
+		if ( file.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		
+		return mediaDataService.replaceMedia(id, file, owner);
 	}
 	
 	@GetMapping ( "/media/{id}" )

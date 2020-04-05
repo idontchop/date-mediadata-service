@@ -33,12 +33,23 @@ public class MediadataService {
 		return mediaDataRepository.findById(id).orElseThrow();
 	}
 
+	/**
+	 * Allows a user to replace their pic. This will not allow a change of owner.
+	 * 
+	 * @param id
+	 * @param file
+	 * @param owner
+	 * @return
+	 * @throws IOException
+	 * @throws NoSuchElementException
+	 */
 	public MediaData replaceMedia ( String id, MultipartFile file, String owner ) throws IOException, NoSuchElementException {
 		
 		MediaData replaceData = mediaDataRepository.findById(id).orElseThrow();
 		
+		if (!replaceData.getOwner().equals(owner)) throw new NoSuchElementException("Owner does not match ID");
+		
 		replaceData.setData( new Binary ( BsonBinarySubType.BINARY, file.getBytes()));
-		replaceData.setOwner(owner);
 		replaceData.setCreated(new Date());
 		
 		replaceData = mediaDataRepository.save(replaceData);

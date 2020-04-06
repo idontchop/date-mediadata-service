@@ -3,6 +3,7 @@ package com.idontchop.datemediadataservice.services;
 import java.io.IOException;
 import java.util.Date;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -62,5 +63,17 @@ public class MediadataService {
 		MediaData mediaData = mediaDataRepository.findById(id).orElseThrow();
 		
 		return mediaData.getData().getData();
+	}
+	
+	public boolean deleteMedia ( String id ) {
+		
+		Optional<MediaData> mediaDataOpt = mediaDataRepository.findById(id);
+		
+		if ( mediaDataOpt.isEmpty() ) return false;
+		
+		mediaDataRepository.delete(mediaDataOpt.get());
+		
+		return true;
+		
 	}
 }

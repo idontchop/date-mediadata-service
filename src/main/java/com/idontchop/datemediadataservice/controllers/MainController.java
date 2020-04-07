@@ -63,11 +63,14 @@ public class MainController {
 	public MediaData replaceMedia (
 			@RequestParam("file") MultipartFile file,
 			@RequestParam (value = "owner", required=true) String owner,
-			@RequestParam (value = "id", required=true) String id) throws IOException {
+			@RequestParam (value = "id", required=true) String id) throws IOException, NoSuchElementException {
 		
 		if ( file.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-		
-		return mediaDataService.replaceMedia(id, file, owner);
+		try {
+			return mediaDataService.replaceMedia(id, file, owner);
+		} catch ( NoSuchElementException e ) {
+			throw new ResponseStatusException (HttpStatus.NOT_FOUND, "Owner does not match Id");
+		}
 	}
 	
 	@GetMapping ( "/media/{id}" )
@@ -81,7 +84,7 @@ public class MainController {
 	}
 	
 	@DeleteMapping ( "/media/{id}" )
-	public ResponseEntity<String> deleteMedia (@PathVariable ( name = "id", required = true) String id ) {
+	public ResponseEntity<Void> deleteMedia (@PathVariable ( name = "id", required = true) String id ) {
 		
 		return mediaDataService.deleteMedia(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
 	}

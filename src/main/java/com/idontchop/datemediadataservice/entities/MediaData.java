@@ -22,6 +22,8 @@ public class MediaData {
 	
 	private Date created = new Date();
 	
+	private boolean hidden = false;
+	
 	public MediaData ( Binary data, String owner ) {
 		this.data = data;
 		this.owner = owner;
@@ -58,6 +60,14 @@ public class MediaData {
 
 	public void setOwner(String owner) {
 		this.owner = owner;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 	
 	

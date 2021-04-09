@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +30,14 @@ public class JwtTokenService {
 	static final String PREFIX = "Bearer";
 	
 	static Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
+	
+	// Get username from request
+	static public String getAuthentication( HttpServletRequest req ) {
+		
+		String token = req.getHeader("Authorization");
+		return getAuthenticationFromString(token.replace(PREFIX, ""));
+
+	}
 		
 	static public String getAuthenticationFromString (String token) {
 		if ( token != null && StringUtils.hasText(token) ) {

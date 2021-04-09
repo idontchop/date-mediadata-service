@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,12 +29,14 @@ import com.idontchop.datemediadataservice.services.MediadataService;
  *
  */
 @RestController
+@CrossOrigin
 public class MediaController {
 	
 	@Autowired
 	MediadataService mediadataService;
 
 
+	@CrossOrigin("http://localhost")
 	@GetMapping ("/image/{id}")
 	public ResponseEntity<byte[]> downloadImage (
 			@PathVariable ( name = "id", required = true) String id,
@@ -52,9 +55,9 @@ public class MediaController {
 		} catch ( NoSuchElementException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		} catch ( IOException e ) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+			throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT);
 		} catch ( NullPointerException e ) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+			throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT);
 		}
 		
 	}

@@ -35,7 +35,7 @@ public class JwtTokenService {
 	static public String getAuthentication( HttpServletRequest req ) {
 		
 		String token = req.getHeader("Authorization");
-		return getAuthenticationFromString(token.replace(PREFIX, ""));
+		return (token == null) ? null : getAuthenticationFromString(token.replace(PREFIX, ""));
 
 	}
 		

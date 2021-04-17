@@ -1,6 +1,7 @@
 package com.idontchop.datemediadataservice.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,12 @@ public class MediaController {
 	@GetMapping ("/image/{id}")
 	public ResponseEntity<byte[]> downloadImage (
 			@PathVariable ( name = "id", required = true) String id,
-			@RequestParam ( name = "token", required = false) String token) {
+			@RequestParam ( name = "token", required = false) String token,
+			Principal principal) {
 		
 		try {
 			MediaData mediaData = mediadataService.getMedia(id);
-			if (mediaData.isHidden()) {
+			if (mediaData.isHidden() && !mediaData.getOwner().equals(principal.getName())) {
 				// parse token if supplied
 				if ( ! JwtTokenService.getAuthenticationFromString(token).equals(mediaData.getId())) 
 					throw new IOException("hidden"); // not athenticated

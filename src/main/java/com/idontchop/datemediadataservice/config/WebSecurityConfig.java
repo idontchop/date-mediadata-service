@@ -19,6 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.idontchop.datemediadataservice.services.JwtFilter;
 
+import config.LoveMireWebConfig;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -51,9 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     CorsConfigurationSource corsConfigurationSource() 
     {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000",
-        		"http://localhost",
-        		"http://lovemire.com"));
+        configuration.setAllowedOrigins(LoveMireWebConfig.CORSCONFIG);
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

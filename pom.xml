@@ -55,6 +55,18 @@
 		    <artifactId>jaxb-api</artifactId>
 		    <version>2.1</version>
 		</dependency>		
+		<!-- Local Dependancies -->
+		<dependency>
+			<groupId>com.lovemire</groupId>
+			<artifactId>models</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lovemire</groupId>
+			<artifactId>message-library</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+				
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
